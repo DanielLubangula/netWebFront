@@ -74,7 +74,8 @@ export const TopPlayersLeaderboard: React.FC = () => {
               <h3 className="font-medium">{periodConfig[period].title}</h3>
             </div>
             <button 
-              onClick={() => navigate(`/leaderboard/${period}`)}
+              onClick={() => navigate(`/leaderboard/`)}
+              // onClick={() => navigate(`/leaderboard/${period}`)}
               className="text-xs text-blue-400 flex items-center"
             >
               Voir tout <ChevronRight className="w-3 h-3 ml-1" />
