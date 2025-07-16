@@ -102,6 +102,7 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
                   src={getCleanImageUrl(user.profilePicture)}
                   alt="Profil"
                   className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
+                  onError={e => { e.currentTarget.src = '/default_profil.webp'; }}
                 />
                 <span className="text-white font-medium text-sm truncate max-w-[100px] hidden sm:inline">
                   {user.username}
