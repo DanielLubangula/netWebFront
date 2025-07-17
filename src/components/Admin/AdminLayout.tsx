@@ -11,6 +11,7 @@ export const AdminLayout: React.FC = () => {
     { icon: Database, label: 'Gestion des Thèmes', path: '/admin/themes' },
     { icon: Settings, label: 'Paramètres', path: '/admin/settings' },
     { icon:Settings , label: 'News', path: '/admin/News' },
+    { icon:Settings , label: 'Notifications', path: '/admin/send/notification' },
   ];
 
   return (

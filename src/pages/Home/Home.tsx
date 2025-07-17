@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
 
       <div className="px-2 mt-4 space-y-4">
         <QuickActions />
-        <Stats />
+        {/* <Stats /> */}
         <TopPlayersLeaderboard />
       </div>
     </div>

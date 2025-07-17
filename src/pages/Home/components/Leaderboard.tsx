@@ -75,7 +75,7 @@ export const Leaderboard: React.FC = () => {
     if (!url) return '/default-profile.png';
 
     if (url.startsWith('http://') || url.startsWith('https://')) return url;
-    return `http://localhost:5000${url}`;
+    return `https://netwebback.onrender.com${url}`;
   }
 
   return (

@@ -97,7 +97,7 @@ const NewsManager: React.FC = () => {
         });
       } else {
         // Création
-        await api.post('http://localhost:5000/api/news', formData, {
+        await api.post('https://netwebback.onrender.com/api/news', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -116,7 +116,7 @@ const NewsManager: React.FC = () => {
 
   const handleEdit = (newsItem: NewsItem) => {
     setCurrentNews(newsItem);
-    setImagePreview(newsItem.image ? `http://localhost:5000${newsItem.image}` : null);
+    setImagePreview(newsItem.image ? `https://netwebback.onrender.com${newsItem.image}` : null);
     setIsEditing(true);
     setShowForm(true);
   };
@@ -339,7 +339,7 @@ const NewsManager: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-700 mb-4">À la une</h3>
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
                   <img
-                    src={`http://localhost:5000${featuredNews.image}`}
+                    src={`https://netwebback.onrender.com${featuredNews.image}`}
                     alt={featuredNews.title}
                     className="w-full h-64 object-cover"
                   />
@@ -385,7 +385,7 @@ const NewsManager: React.FC = () => {
               {news.map(item => (
                 <div key={item._id} className="bg-white rounded-lg shadow-md overflow-hidden">
                   <img
-                    src={`http://localhost:5000${item.image}`}
+                    src={`https://netwebback.onrender.com${item.image}`}
                     alt={item.title}
                     className="w-full h-48 object-cover"
                   />

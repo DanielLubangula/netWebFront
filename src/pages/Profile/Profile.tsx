@@ -39,7 +39,7 @@ interface UserStats {
 function getCleanImageUrl(url?: string) {
   if (!url) return '/default-profile.png';
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  return `http://localhost:5000${url}`;
+  return `https://netwebback.onrender.com${url}`;
 }
 
 export const Profile: React.FC = () => {
@@ -151,6 +151,15 @@ export const Profile: React.FC = () => {
         ...userStats,
         profilePicture: response.data.imageUrl,
       });
+
+      // Mettre à jour le localStorage pour synchroniser la photo de profil dans le header
+      const userString = localStorage.getItem("user");
+      if (userString) {
+        const userObject = JSON.parse(userString);
+        userObject.profilePicture = response.data.imageUrl;
+        localStorage.setItem("user", JSON.stringify(userObject));
+        window.location.reload();
+      }
 
       setUploadMessage({
         text: "Photo de profil mise à jour avec succès!",

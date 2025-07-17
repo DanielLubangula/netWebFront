@@ -4,7 +4,7 @@ let socket: Socket | null = null;
 
 export const initializeSocket = (token: string) => {
   if (!socket) {
-    socket = io("http://localhost:5000", {
+    socket = io("https://netwebback.onrender.com", {
       auth: { token },
     });
   }

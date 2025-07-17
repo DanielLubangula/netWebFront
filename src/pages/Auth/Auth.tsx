@@ -81,7 +81,7 @@ export const Auth: React.FC = () => {
   };
 
   const handleGoogleAuth = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href = "https://netwebback.onrender.com/api/auth/google";
   };
 
   return (

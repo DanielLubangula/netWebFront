@@ -1,15 +1,29 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Zap, BookOpen, Trophy } from 'lucide-react';
-
-const stats = [
-  { icon: Users, label: 'Joueurs actifs', value: '1,234', color: 'text-blue-400' },
-  { icon: Zap, label: 'Quiz joués aujourd\'hui', value: '456', color: 'text-green-400' },
-  { icon: BookOpen, label: 'Leçons disponibles', value: '28', color: 'text-purple-400' },
-  { icon: Trophy, label: 'Défis en cours', value: '89', color: 'text-yellow-400' },
-];
+import { Users, Zap } from 'lucide-react';
+import { getDashboardStats } from '../../../services/api';
 
 export const Stats: React.FC = () => {
+  const [stats, setStats] = React.useState({
+    userCount: 0,
+    matchCount: 0,
+    // lessonCount: 0, // Pour usage futur
+    // quizToday: 0, // Pour usage futur si dispo
+    // challengeCount: 0, // Pour usage futur si dispo
+  });
+  React.useEffect(() => {
+    getDashboardStats().then(data => {
+      setStats(data);
+    });
+  }, []);
+
+  const statList = [
+    { icon: Users, label: 'Joueurs inscrits', value: stats.userCount, color: 'text-blue-400' },
+    { icon: Zap, label: "Quiz joués (total)", value: stats.matchCount, color: 'text-green-400' },
+    // { icon: BookOpen, label: 'Leçons disponibles', value: stats.lessonCount, color: 'text-purple-400' }, // Pour usage futur
+    // { icon: Trophy, label: 'Défis en cours', value: stats.challengeCount, color: 'text-yellow-400' }, // Pour usage futur
+  ];
+
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}
@@ -17,7 +31,7 @@ export const Stats: React.FC = () => {
       transition={{ duration: 0.6, delay: 0.1 }}
       className="grid grid-cols-2 lg:grid-cols-4 gap-4"
     >
-      {stats.map((stat, index) => (
+      {statList.map((stat, index) => (
         <motion.div
           key={stat.label}
           initial={{ scale: 0.9, opacity: 0 }}

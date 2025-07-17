@@ -21,7 +21,7 @@ export const TopPlayers: React.FC = () => {
   function getCleanImageUrl(url?: string) {
     if (!url) return '/default-profile.png';
      if (url.startsWith('http://') || url.startsWith('https://')) return url;
-    return `http://localhost:5000${url}`;
+    return `https://netwebback.onrender.com${url}`;
   }
   useEffect(() => {
     // Fonction utilitaire pour corriger l'URL d'image

@@ -70,7 +70,7 @@ export const News: React.FC = () => {
               <div className="md:flex">
                 <div className="md:w-1/2">
                   <img 
-                    src={`http://localhost:5000${featuredArticle.image}`} 
+                    src={`https://netwebback.onrender.com${featuredArticle.image}`} 
                     alt={featuredArticle.title}
                     className="w-full h-64 md:h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
@@ -121,7 +121,7 @@ export const News: React.FC = () => {
               >
                 <div className="bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-gray-600 transition-all duration-200 cursor-pointer group hover:scale-105">
                   <img 
-                    src={`http://localhost:5000${article.image}`} 
+                    src={`https://netwebback.onrender.com${article.image}`} 
                     alt={article.title}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />

@@ -143,7 +143,7 @@ export const ChallengeRoom: React.FC = () => {
 
         // Vérifier si le match existe et son état
         const response = await fetch(
-          `http://localhost:5000/api/matches/${roomId}`
+          `https://netwebback.onrender.com/api/matches/${roomId}`
         );
         const data = await response.json();
         console.log("DAta", data );

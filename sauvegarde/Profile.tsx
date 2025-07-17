@@ -54,7 +54,7 @@ export const Profile: React.FC = () => {
     formData.append('profileImage', selectedFile);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/profil/image', formData, {
+      const response = await axios.post('https://netwebback.onrender.com/api/profil/image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${localStorage.getItem('token')}`

@@ -22,7 +22,7 @@ export const OnlinePlayers: React.FC = () => {
   const fetchOnlinePlayers = async () => {
     const socket = getSocket();
     if (!socket) {
-      // const resp = await fetch('http://localhost:5000/api/online-users');
+      // const resp = await fetch('https://netwebback.onrender.com/api/online-users');
       // const data = await resp.json();
       // console.log('socket non dispo')
       // setOnlinePlayers(data);

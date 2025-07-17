@@ -479,7 +479,7 @@ export const ChallengeRoom: React.FC = () => {
                     className="flex items-center bg-gray-700 p-3 rounded-lg"
                   >
                     <img
-                      src={`http://localhost:5000${player.profilePicture}`}
+                      src={`https://netwebback.onrender.com${player.profilePicture}`}
                       alt={player.username}
                       className="w-10 h-10 rounded-full border-2 border-blue-500 mr-3"
                     />
@@ -536,7 +536,7 @@ export const ChallengeRoom: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <img
-                        src={`http://localhost:5000${player.profilePicture}`}
+                        src={`https://netwebback.onrender.com${player.profilePicture}`}
                         alt={player.username}
                         className="w-12 h-12 rounded-full border-2 border-blue-500 mr-4"
                       />

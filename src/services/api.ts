@@ -1,5 +1,5 @@
 // Centralisation de l'URL de base de l'API
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://netwebback.onrender.com';
 
 import axios from 'axios';
 
@@ -12,5 +12,11 @@ export const api = axios.create({
 export async function fetchApi(input: string, init?: RequestInit) {
   const url = input.startsWith('http') ? input : `${API_BASE_URL}${input.startsWith('/') ? '' : '/'}${input}`;
   return fetch(url, init);
+}
+
+// Récupérer les statistiques du dashboard admin
+export async function getDashboardStats() {
+  const response = await api.get('/api/admin/dashboard');
+  return response.data; 
 } 
 

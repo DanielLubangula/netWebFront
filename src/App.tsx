@@ -24,6 +24,7 @@ import { Users } from "./pages/Admin/Users";
 import { Themes } from "./pages/Admin/Themes";
 import { ThemeContent } from "./pages/Admin/ThemeContent";
 import { PublicProfile } from "./pages/publicProfilPage/index";
+import { SendNotification } from './pages/Admin';
 
 import { useEffect, useState } from "react";
 import { initializeSocket, disconnectSocket } from "./socket";
@@ -229,6 +230,7 @@ function App() {
               <Route path="settings" element={<SettingsAdmin />} />
               <Route path="News" element={<NewsManager />} />
               <Route path="questions/theme/:name" element={<ThemeContent />} />
+              <Route path="send/notification" element={<ProtectedRoute><SendNotification /></ProtectedRoute>} />
             </Route>
           </Routes>
         </div>

@@ -30,7 +30,7 @@ export const QuizPlay: React.FC = () => {
     const fetchQuestions = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:5000/api/questions/theme/${theme}/json`);
+        const res = await fetch(`https://netwebback.onrender.com/api/questions/theme/${theme}/json`);
         const data = await res.json();
 
         if (!res.ok) throw new Error(data.message || 'Erreur lors du chargement');

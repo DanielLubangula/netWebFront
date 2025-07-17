@@ -78,7 +78,7 @@ export const PublicProfile: React.FC = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/profil/public/${userId}`);
+        const res = await axios.get(`https://netwebback.onrender.com/api/profil/public/${userId}`);
         console.log("--------------- : ",res.data)
         setUser(res.data);
       } catch (error) {
@@ -94,7 +94,7 @@ export const PublicProfile: React.FC = () => {
   useEffect(() => {
     const fetchThemes = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/questions/themes");
+        const res = await axios.get("https://netwebback.onrender.com/api/questions/themes");
         setThemes(res.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des thèmes :", error);

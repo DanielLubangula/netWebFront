@@ -130,7 +130,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center">
                   <img
-                    src={`http://localhost:5000${player.profilePicture}`}
+                    src={`https://netwebback.onrender.com${player.profilePicture}`}
                     alt={player.username}
                     className="w-12 h-12 rounded-full border-2 border-white mr-4"
                   />

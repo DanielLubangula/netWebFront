@@ -37,7 +37,7 @@ export const PlayersStatus: React.FC<PlayersStatusProps> = ({
             } bg-gray-800`}
           >
             <img
-              src={`http://localhost:5000${player.profilePicture}`}
+              src={`https://netwebback.onrender.com${player.profilePicture}`}
               alt={player.username}
               className="w-10 h-10 rounded-full border-2 border-blue-500 mr-3"
             />

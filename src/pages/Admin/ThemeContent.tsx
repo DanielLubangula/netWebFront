@@ -19,7 +19,7 @@ export const ThemeContent: React.FC = () => {
     const fetchThemeContent = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:5000/api/questions/theme/${currentName}`);
+        const response = await fetch(`https://netwebback.onrender.com/api/questions/theme/${currentName}`);
         if (!response.ok) throw new Error('Erreur lors de la récupération du contenu du thème');
         const data = await response.json();
         setContent(data.content);
@@ -43,7 +43,7 @@ export const ThemeContent: React.FC = () => {
 
     setSaving(true);
     try {
-      const response = await fetch(`http://localhost:5000/api/questions/theme/${currentName}`, {
+      const response = await fetch(`https://netwebback.onrender.com/api/questions/theme/${currentName}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

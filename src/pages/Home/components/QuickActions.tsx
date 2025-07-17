@@ -20,14 +20,14 @@ const actions = [
     color: 'from-purple-600 to-pink-600',
     hoverColor: 'hover:from-purple-700 hover:to-pink-700',
   },
-  {
-    icon: BookOpen,
-    title: 'Apprendre',
-    description: 'Cours et leçons',
-    path: '/learning',
-    color: 'from-green-600 to-emerald-600',
-    hoverColor: 'hover:from-green-700 hover:to-emerald-700',
-  },
+  // {
+  //   icon: BookOpen,
+  //   title: 'Apprendre',
+  //   description: 'Cours et leçons',
+  //   path: '/learning',
+  //   color: 'from-green-600 to-emerald-600',
+  //   hoverColor: 'hover:from-green-700 hover:to-emerald-700',
+  // },
   {
     icon: Trophy,
     title: 'Classement',

@@ -3,6 +3,7 @@ import { Menu, Bell, Settings, User, UserCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
+import { getNotifications } from '../../services/notificationService';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -12,13 +13,15 @@ interface HeaderProps {
 function getCleanImageUrl(url?: string) {
   if (!url) return '/default-profile.png';
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  return `http://localhost:5000${url}`;
+  return `https://netwebback.onrender.com${url}`;
 }
+
+type Notification = { read: boolean };
 
 export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const navigate = useNavigate();
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [notificationCount] = useState(3);
+  const [notificationCount, setNotificationCount] = useState(0);
 
   const getUserFromLocalStorage = () => {
     const userData = localStorage.getItem("user");
@@ -37,6 +40,22 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const toggleUserMenu = () => {
     setShowUserMenu(!showUserMenu);
   };
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      if (!token) return;
+      try {
+        const notifications: Notification[] = await getNotifications(token);
+        const unread = notifications.filter((n) => !n.read).length;
+        setNotificationCount(unread);
+      } catch {
+        setNotificationCount(0);
+      }
+    };
+       setInterval(() => {
+          fetchNotifications(); // Rafraîchir les notifications toutes les 15 secondes
+        }, 15000); // Rafraîchir toutes les 15 secondes
+  }, [token]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

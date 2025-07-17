@@ -11,8 +11,8 @@ import {
   User,
   X,
   Network,
-  Crown,
   Settings,
+  Send,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -29,12 +29,12 @@ const menuItems = [
   { icon: Swords, label: "Défis", path: "/players/online", requiresLogin: true },
   // { icon: Crown, label: "Tournois", path: "/tournament", requiresLogin: true },
   { icon: Trophy, label: "Classement", path: "/leaderboard" },
-  {
-    icon: BookOpen,
-    label: "Apprentissage",
-    path: "/learning",
-    requiresLogin: true,
-  },
+  // {
+  //   icon: BookOpen,
+  //   label: "Apprentissage",
+  //   path: "/learning",
+  //   requiresLogin: true,
+  // },
   { icon: Newspaper, label: "Actualités", path: "/news" },
   { icon: User, label: "Changer d'avatar", path: "/profile", requiresLogin: true },
   {
@@ -43,6 +43,7 @@ const menuItems = [
     path: "/settings",
     requiresLogin: true,
   },
+  // { icon: Send, label: "Envoyer une notification", path: "/admin/send-notification", requiresLogin: true },
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
