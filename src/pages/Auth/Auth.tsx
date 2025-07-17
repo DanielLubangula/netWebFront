@@ -45,7 +45,7 @@ export const Auth: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
+    const endpoint = isLogin ? "/api/local/auth/login" : "/api/local/auth/register";
     setLoading(true); // activation du spinner
     const payload = isLogin
       ? { email: formData.email, password: formData.password }
