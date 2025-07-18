@@ -33,6 +33,7 @@ import ChallengeNotification from "./components/ChallengeNotification/ChallengeN
 import { Socket } from "socket.io-client";
 import { Erreur } from "./pages/Err/Erreur"
 import { AuthProvider } from './context/AuthContext';
+import LiveMatches from "./pages/Challenge/LiveMatches";
 
 interface ChallengeData {
   theme: string;
@@ -61,7 +62,7 @@ function App() {
     pathname: string;
     state: {
       roomId: string;
-      players: any[];
+      players: unknown[];
       challengeData: ChallengeData;
       message: string;
       questions: Question[];
@@ -119,13 +120,10 @@ function App() {
     };
   }, []);
 
-  const [challengeError, setChallengeError] = useState<string | null>(null);
-
   useEffect(() => {
     if (socket) {
-      const handleChallengeError = ({ message }: { message: string }) => {
-        setChallengeError(message);
-        setTimeout(() => setChallengeError(null), 5000);
+      const handleChallengeError = () => {
+        // Erreur de défi ignorée car déjà gérée ailleurs
       };
       socket.on("challengeError", handleChallengeError);
 
@@ -207,6 +205,7 @@ function App() {
               <Route path="Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path="profile/:userId" element={<ProtectedRoute><PublicProfile /></ProtectedRoute>} />
               <Route path="leaderboard" element={<Leaderboard />} />
+              <Route path="challenge/live-matches" element={<LiveMatches />} />
               <Route path="/players/online" element={<ProtectedRoute><AllOnlinePlayers /></ProtectedRoute>} />
               <Route path="leaderboard/full" element={<ProtectedRoute><FullLeaderboard /></ProtectedRoute>} />
               <Route 

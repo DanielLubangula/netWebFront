@@ -6,13 +6,11 @@ import {
   Brain,
   Trophy,
   Swords,
-  BookOpen,
   Newspaper,
   User,
   X,
   Network,
   Settings,
-  Send,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -36,6 +34,7 @@ const menuItems = [
   //   requiresLogin: true,
   // },
   { icon: Newspaper, label: "Actualités", path: "/news" },
+  { icon: Swords, label: "Matchs en direct", path: "/challenge/live-matches" },
   { icon: User, label: "Changer d'avatar", path: "/profile", requiresLogin: true },
   {
     icon: Settings,
