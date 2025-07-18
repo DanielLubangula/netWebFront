@@ -4,7 +4,7 @@ let socket: Socket | null = null;
 
 export const initializeSocket = (token: string) => {
   if (!socket) {
-    socket = io("https://netwebback.onrender.com", {
+    socket = io(import.meta.env.VITE_API_BASE_URL, {
       auth: { token },
     });
   }

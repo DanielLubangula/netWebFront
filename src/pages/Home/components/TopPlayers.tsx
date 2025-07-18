@@ -19,7 +19,7 @@ export const TopPlayers: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"global" | "daily" | "weekly" | "monthly">("global");
 
   function getCleanImageUrl(url?: string) {
-    if (!url) return '/default-profile.png';
+    if (!url) return 'https://netwebback.onrender.com/default-profile.png';
      if (url.startsWith('http://') || url.startsWith('https://')) return url;
     return `https://netwebback.onrender.com${url}`;
   }

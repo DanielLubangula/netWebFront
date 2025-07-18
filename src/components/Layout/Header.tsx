@@ -11,7 +11,8 @@ interface HeaderProps {
 
 // Fonction utilitaire pour corriger l'URL d'image
 function getCleanImageUrl(url?: string) {
-  if (!url) return '/default-profile.png';
+  console.log("header : ", url)
+  if (!url) return 'https://netwebback.onrender.com/default-profile.png';
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
   return `https://netwebback.onrender.com${url}`;
 }
@@ -91,9 +92,9 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           </button>
           <div className="flex items-center gap-2">
             <img src={logo} alt="Logo" className="w-10 h-10 sm:w-14 sm:h-14" />
-            <h1 className="text-md font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            {/* <h1 className="text-md font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               NetWebQuiz
-            </h1>
+            </h1> */}
           </div>
         </div>
 

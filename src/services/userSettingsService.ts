@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://netwebback.onrender.com/api/user';
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/user`;
 
 export const getUserSettings = async () => {
   const res = await axios.get(`${API_URL}/settings`, { withCredentials: true });

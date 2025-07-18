@@ -11,7 +11,7 @@ export interface NewsInterface {
   featured?: boolean;
 }
 
-const API_URL = 'https://netwebback.onrender.com/api/news';
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/news`;
 
 export const getAllNews = async (): Promise<NewsInterface[]> => {
   const res = await axios.get(`${API_URL}`);

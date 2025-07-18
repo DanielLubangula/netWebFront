@@ -1,5 +1,5 @@
 // Centralisation de l'URL de base de l'API
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://netwebback.onrender.com';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 import axios from 'axios';
 
