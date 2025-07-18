@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSocket } from "../../socket";
 
+// Fonction utilitaire pour corriger l'URL d'image
+function getCleanImageUrl(url?: string) {
+  if (!url) return '/default-profile.png';
+  if (url.startsWith('http://') || url.startsWith('https://')) return url;
+  return `https://netwebback.onrender.com${url}`;
+}
+
 type Match = {
   roomId: string;
-  players: Array<{ username: string; profilePicture?: string }>;
+  players: Array<{ username: string; profilePicture?: string }>; // Peut-être adapter selon le back
   theme: string;
   createdAt: string;
 };
@@ -39,17 +46,33 @@ const LiveMatches: React.FC = () => {
           {matches.map((match) => (
             <li
               key={match.roomId}
-              className="cursor-pointer border p-2 my-2 rounded hover:bg-gray-100"
+              className="cursor-pointer border p-4 my-4 rounded-lg hover:bg-gray-100 bg-gray-800 flex flex-col gap-2 shadow"
               onClick={() => navigate(`/challenge/room/${match.roomId}`)}
             >
-              <div>
-                <b>Thème :</b> {match.theme}
+              <div className="flex items-center justify-center gap-6">
+                {/* Joueur 1 */}
+                <div className="flex flex-col items-center">
+                  <img
+                    src={getCleanImageUrl(match.players[0]?.profilePicture)}
+                    alt={match.players[0]?.username}
+                    className="w-12 h-12 rounded-full border-2 border-blue-500 mb-1"
+                  />
+                  <span className="font-bold text-sm text-center">{match.players[0]?.username}</span>
+                </div>
+                <span className="font-bold text-lg text-gray-400">VS</span>
+                {/* Joueur 2 */}
+                <div className="flex flex-col items-center">
+                  <img
+                    src={getCleanImageUrl(match.players[1]?.profilePicture)}
+                    alt={match.players[1]?.username}
+                    className="w-12 h-12 rounded-full border-2 border-red-500 mb-1"
+                  />
+                  <span className="font-bold text-sm text-center">{match.players[1]?.username}</span>
+                </div>
               </div>
-              <div>
-                <b>Joueurs :</b> {match.players.map((p) => p.username).join(" vs ")}
-              </div>
-              <div>
-                <b>Début :</b> {new Date(match.createdAt).toLocaleTimeString()}
+              <div className="flex justify-between text-xs text-gray-400 mt-2">
+                <span>Thème : <b className="text-white">{match.theme}</b></span>
+                <span>Début : {new Date(match.createdAt).toLocaleTimeString()}</span>
               </div>
             </li>
           ))}
