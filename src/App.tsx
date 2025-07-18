@@ -33,6 +33,8 @@ import ChallengeNotification from "./components/ChallengeNotification/ChallengeN
 import { Socket } from "socket.io-client";
 import { Erreur } from "./pages/Err/Erreur"
 import { AuthProvider } from './context/AuthContext';
+import Chats from "./pages/chats/chats";
+import PublicChat from "./pages/chats/PublicChat";
 import LiveMatches from "./pages/Challenge/LiveMatches";
 
 interface ChallengeData {
@@ -208,6 +210,7 @@ function App() {
               <Route path="challenge/live-matches" element={<LiveMatches />} />
               <Route path="/players/online" element={<ProtectedRoute><AllOnlinePlayers /></ProtectedRoute>} />
               <Route path="leaderboard/full" element={<ProtectedRoute><FullLeaderboard /></ProtectedRoute>} />
+              <Route path="chat/public" element={<ProtectedRoute><PublicChat /></ProtectedRoute>} />
               <Route 
                 path="challenge/room/:roomId" 
                 element={<ProtectedRoute><ChallengeRoom /></ProtectedRoute>} 

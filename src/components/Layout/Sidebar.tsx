@@ -42,6 +42,12 @@ const menuItems = [
     path: "/settings",
     requiresLogin: true,
   },
+   {
+    icon: Network,
+    label: "Chat public",
+    path: "/chat/public",
+    requiresLogin: true,
+  },
   // { icon: Send, label: "Envoyer une notification", path: "/admin/send-notification", requiresLogin: true },
 ];
 
