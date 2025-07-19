@@ -207,7 +207,7 @@ export const Leaderboard: React.FC = () => {
                     </span>
                   </div>
                   <div className="text-xs sm:text-sm text-gray-400 truncate">
-                    {player.totalScore.toLocaleString()} pts
+                    {player.experience} XP
                   </div>
                 </div>
 

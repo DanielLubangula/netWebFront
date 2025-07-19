@@ -49,6 +49,7 @@ export const Notifications: React.FC = () => {
       if (!token) return;
       try {
         const notifications = await getNotifications(token);
+        console.log('notifications : ', notifications  )
         setNotificationList(notifications);
         
       } catch {

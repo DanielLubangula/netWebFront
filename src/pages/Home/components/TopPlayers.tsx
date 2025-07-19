@@ -31,7 +31,7 @@ export const TopPlayers: React.FC = () => {
         const response = await fetchApi('/api/profil/leaderboard');
         const data = await response.json();
         console.log("data",data)
-        setTopPlayers(data[activeTab].slice(0, 5)); // Prendre les 5 premiers
+        setTopPlayers(data[activeTab].slice(0, 10)); // Prendre les 5 premiers
       } catch (error) {
         console.error("Error fetching top players:", error);
       } finally {
@@ -147,7 +147,7 @@ export const TopPlayers: React.FC = () => {
                       {index === 0 && (
                         <div className="w-1 h-1 bg-amber-400 rounded-full"></div>
                       )}
-                      <p className="text-[10px] text-blue-400">{player.totalScore}pts</p>
+                      <p className="text-[10px] text-blue-400">{player.experience} XP</p>
                     </div>
                   </div>
                 </motion.div>

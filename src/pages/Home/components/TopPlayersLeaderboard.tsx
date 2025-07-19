@@ -10,6 +10,7 @@ interface Player {
   profilePicture: string;
   level: number;
   totalScore: number;
+  experience: number;
 }
 
 export const TopPlayersLeaderboard: React.FC = () => {
@@ -130,7 +131,7 @@ export const TopPlayersLeaderboard: React.FC = () => {
                     </span>
                   </div>
                   <div className="text-xs text-gray-400">
-                    {player.totalScore} pts
+                    {player.experience} XP
                   </div>
                 </div>
               </motion.div>
