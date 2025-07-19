@@ -10,8 +10,8 @@ export interface NewsInterface {
   image: string;
   featured?: boolean;
 }
-
-const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/news`;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const API_URL = `${API_BASE_URL}/api/news`;
 
 export const getAllNews = async (): Promise<NewsInterface[]> => {
   const res = await axios.get(`${API_URL}`);

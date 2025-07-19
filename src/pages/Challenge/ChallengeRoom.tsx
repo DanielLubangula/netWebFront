@@ -145,8 +145,9 @@ export const ChallengeRoom: React.FC = () => {
         }
 
         // Vérifier si le match existe et son état
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';  
         const response = await fetch(
-          `https://netwebback.onrender.com/api/matches/${roomId}`
+          `${API_BASE_URL}/api/matches/${roomId}`
         );
         const data = await response.json();
         console.log("DAta", data);

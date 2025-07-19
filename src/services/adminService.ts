@@ -1,6 +1,6 @@
 import axios from 'axios';
-
-const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/admin`;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const API_URL = `${API_BASE_URL}/api/admin`;
 
 // Dashboard
 export const getDashboardStats = async () => {
@@ -11,7 +11,6 @@ export const getDashboardStats = async () => {
 // Users
 export const getAllUsers = async () => {
   const res = await axios.get(`${API_URL}/users`, { withCredentials: true });
-  console.log('res : ', res.data)
   return res.data;
 };
 export const updateUser = async (id: string, data: any) => {

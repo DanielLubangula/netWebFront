@@ -31,8 +31,15 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
     }
   };
 
+  // console.log('MessageBubble render:', { 
+  //   messageId: message._id, 
+  //   username: message.username, 
+  //   isOwnMessage,
+  //   showMenu: showMenu === message._id 
+  // });
+
   return (
-    <div className="flex items-start space-x-3">
+    <div className={`flex items-start space-x-3 ${isOwnMessage ? 'flex-row-reverse space-x-reverse' : ''}`}>
       {/* Photo de profil */}
       <div className="flex-shrink-0">
         <img
@@ -48,12 +55,21 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
 
       {/* Contenu du message */}
       <div className="flex-1 min-w-0">
-        <div className="bg-white rounded-lg p-3 shadow-sm border border-gray-200">
+        <div className={`rounded-lg p-3 shadow-sm border ${
+          isOwnMessage 
+            ? 'bg-indigo-500 text-white border-indigo-400' 
+            : 'bg-white text-gray-900 border-gray-200'
+        }`}>
           {/* En-tête du message */}
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center space-x-2">
-              <span className="font-semibold text-gray-900">{message.username}</span>
-              <span className="text-xs text-gray-500">{formatTime(message.createdAt)}</span>
+              <span className={`font-semibold ${isOwnMessage ? 'text-white' : 'text-gray-900'}`}>
+                {message.username}
+                {isOwnMessage && <span className="ml-1 text-xs opacity-75">(Vous)</span>}
+              </span>
+              <span className={`text-xs ${isOwnMessage ? 'text-indigo-100' : 'text-gray-500'}`}>
+                {formatTime(message.createdAt)}
+              </span>
             </div>
             
             {/* Menu des options */}
@@ -69,18 +85,28 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
 
           {/* Message de réponse */}
           {message.replyTo && (
-            <div className="bg-gray-50 rounded p-2 mb-2 border-l-2 border-indigo-300">
-              <div className="text-xs text-gray-600 mb-1">
+            <div className={`rounded p-2 mb-2 border-l-2 ${
+              isOwnMessage 
+                ? 'bg-indigo-400 border-indigo-300 text-indigo-900' 
+                : 'bg-gray-50 border-indigo-300 text-gray-700'
+            }`}>
+              <div className={`text-xs mb-1 ${
+                isOwnMessage ? 'text-indigo-800' : 'text-gray-600'
+              }`}>
                 Réponse à <span className="font-medium">{message.replyTo.username}</span>
               </div>
-              <div className="text-sm text-gray-700 truncate">
+              <div className={`text-sm truncate ${
+                isOwnMessage ? 'text-indigo-800' : 'text-gray-700'
+              }`}>
                 {message.replyTo.text}
               </div>
             </div>
           )}
 
           {/* Texte du message */}
-          <div className="text-gray-900 whitespace-pre-wrap break-words">
+          <div className={`whitespace-pre-wrap break-words ${
+            isOwnMessage ? 'text-white' : 'text-gray-900'
+          }`}>
             {message.text}
           </div>
         </div>

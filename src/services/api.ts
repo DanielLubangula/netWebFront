@@ -47,5 +47,11 @@ export async function fetchApi(input: string, init?: RequestInit) {
 export async function getDashboardStats() {
   const response = await api.get('/api/admin/dashboard');
   return response.data; 
+}
+
+// Récupérer les matchs terminés récents
+export async function getRecentCompletedMatches() {
+  const response = await api.get('/api/all-matches/completed/recent');
+  return response.data;
 } 
 

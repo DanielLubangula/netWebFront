@@ -97,7 +97,10 @@ const NewsManager: React.FC = () => {
         });
       } else {
         // Création
-        await api.post('https://netwebback.onrender.com/api/news', formData, {
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+
+        await api.post(`${API_BASE_URL}/api/news`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -227,6 +230,7 @@ const NewsManager: React.FC = () => {
                 <div>
                   <label className="block text-gray-700 mb-2">Catégorie *</label>
                   <select
+                    style={{color: 'black'}}
                     name="category"
                     value={currentNews.category || 'Nouveautés'}
                     onChange={handleInputChange}
@@ -339,7 +343,8 @@ const NewsManager: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-700 mb-4">À la une</h3>
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
                   <img
-                    src={`https://netwebback.onrender.com${featuredNews.image}`}
+                  
+                    src={`${ import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}${featuredNews.image}`}
                     alt={featuredNews.title}
                     className="w-full h-64 object-cover"
                   />
@@ -385,7 +390,7 @@ const NewsManager: React.FC = () => {
               {news.map(item => (
                 <div key={item._id} className="bg-white rounded-lg shadow-md overflow-hidden">
                   <img
-                    src={`https://netwebback.onrender.com${item.image}`}
+                    src={`${ import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}${item.image}`}
                     alt={item.title}
                     className="w-full h-48 object-cover"
                   />

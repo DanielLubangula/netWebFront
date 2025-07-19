@@ -92,7 +92,7 @@ function App() {
         // console.log(`Match démarré dans la salle ${roomId}`);
         
         setRedirectToRoom({
-          pathname: `/challenge/room/${roomId}`,
+          pathname: `/challenge/room/${roomId}`,   
           state: { 
             roomId, 
             players, 

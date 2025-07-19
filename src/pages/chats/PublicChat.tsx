@@ -12,6 +12,14 @@ interface ReplyToMessage {
   text: string;
 }
 
+interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  type: string;
+  createdAt: string;
+}
+
 const PublicChat: React.FC = () => {
   const { user } = useAuth();
   const [messages, setMessages] = useState<PublicMessage[]>([]);
@@ -20,8 +28,9 @@ const PublicChat: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [showMenu, setShowMenu] = useState<string | null>(null);
-  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messageRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   // Vérifier le token au chargement
   useEffect(() => {
@@ -63,11 +72,22 @@ const PublicChat: React.FC = () => {
       setToast({ message, type: 'success' });
     });
 
+    // Écouter les nouvelles notifications en temps réel
+    socket.on('newNotification', (notification: Notification) => {
+      console.log('Nouvelle notification reçue:', notification);
+      // Afficher une notification toast pour informer l'utilisateur
+      setToast({ 
+        message: `${notification.title}: ${notification.message}`, 
+        type: 'info' 
+      });
+    });
+
     return () => {
       socket.off('publicMessageReceived');
       socket.off('publicMessageDeleted');
       socket.off('publicMessageError');
       socket.off('publicMessageSent');
+      socket.off('newNotification');
     };
   }, []);
 
@@ -149,20 +169,60 @@ const PublicChat: React.FC = () => {
   };
 
   const handleReplyToMessage = (message: PublicMessage) => {
+    console.log('Réponse à:', message);
     setReplyingTo({
       messageId: message._id,
       username: message.username,
       text: message.text
     });
     setShowMenu(null);
+    
+    // Scroll vers le message de référence avec un délai pour s'assurer que le DOM est mis à jour
+    setTimeout(() => {
+      const messageElement = messageRefs.current[message._id];
+      console.log('Message element:', messageElement);
+      if (messageElement) {
+        messageElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+        // Ajouter un effet de surbrillance temporaire
+        messageElement.classList.add('ring-2', 'ring-indigo-300', 'ring-opacity-50');
+        setTimeout(() => {
+          messageElement.classList.remove('ring-2', 'ring-indigo-300', 'ring-opacity-50');
+        }, 2000);
+      }
+    }, 200);
   };
 
   const scrollToBottom = () => {
+    console.log('Scrolling to bottom', messagesEndRef.current);
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const isOwnMessage = (message: PublicMessage) => {
-    return message.username === user?.username;
+    const userData = localStorage.getItem("user");
+    if (!userData) {
+      console.warn('User data not found in localStorage');
+      return false;
+    }
+    
+    try {
+      const user = JSON.parse(userData);
+      if (!user || !user.username) {
+        console.warn('User not found or username is missing');
+        return false;
+      }
+      const username = user.username;
+      return message.username === username;
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      return false;
+    }
+  };
+
+  const setMessageRef = (messageId: string, element: HTMLDivElement | null) => {
+    messageRefs.current[messageId] = element;
   };
 
   // Vérifier si l'utilisateur est connecté
@@ -214,17 +274,27 @@ const PublicChat: React.FC = () => {
 
       {/* Zone de messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
+        {messages.map((message) => {
+          const ownMessage = isOwnMessage(message);
+          return (
+            <div
+              key={message._id}
+              ref={(el) => setMessageRef(message._id, el)}
+              className={`transition-all duration-300 ${
+                ownMessage ? 'bg-indigo-50 rounded-lg p-2 -m-2' : ''
+              }`}
+            >
           <MessageBubble
-            key={message._id}
             message={message}
-            isOwnMessage={isOwnMessage(message)}
+                isOwnMessage={ownMessage}
             showMenu={showMenu}
             onShowMenu={setShowMenu}
             onReply={handleReplyToMessage}
             onDelete={handleDeleteMessage}
           />
-        ))}
+            </div>
+          );
+        })}
         <div ref={messagesEndRef} />
       </div>
 
