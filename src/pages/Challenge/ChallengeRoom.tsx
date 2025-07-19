@@ -10,6 +10,7 @@ import { ResultsDisplay } from "./ResultsDisplay";
 import { LeaveConfirmation } from "./LeaveConfirmation";
 import { useAuth } from "../../context/AuthContext";
 import { MatchStatus } from "../../types/match";
+import { MatchComments } from "./components/MatchComments";
 
 interface Player {
   _id: string;
@@ -136,6 +137,7 @@ export const ChallengeRoom: React.FC = () => {
         if (!location.state) {
           const path = location.pathname.split("/")[3];
           roomId = path;
+          console.log("chal : ", roomId)
         }
 
         if (!roomId) {
@@ -486,17 +488,30 @@ export const ChallengeRoom: React.FC = () => {
       </AnimatePresence>
 
       {gameStatus === "abandoned" && (
-        <ResultsDisplay
-          players={players.filter(
-            (p) => !opponentLeft || p.userId === user?.id
+        <>
+          <ResultsDisplay
+            players={players.filter(
+              (p) => !opponentLeft || p.userId === user?.id
+            )}
+            challengeData={finalChallengeData}
+            questions={questions}
+            calculatedScores={calculatedScores}
+            onReturnHome={() => navigate("/", { replace: true })}
+            isAbandoned={true}
+            abandonedByOpponent={opponentLeft}
+            matchId={roomId}
+          />
+          
+          {/* Chat dans les résultats abandonnés */}
+          {roomId && (
+            <div className="mt-6">
+              <MatchComments 
+                matchId={roomId} 
+                isVisible={true} 
+              />
+            </div>
           )}
-          challengeData={finalChallengeData}
-          questions={questions}
-          calculatedScores={calculatedScores}
-          onReturnHome={() => navigate("/", { replace: true })}
-          isAbandoned={true}
-          abandonedByOpponent={opponentLeft}
-        />
+        </>
       )}
 
       {gameStatus === "playing" && (
@@ -522,21 +537,44 @@ export const ChallengeRoom: React.FC = () => {
               isSpectator={isSpectator}
             />
           )}
+          
+          {/* Chat pendant le jeu */}
+          {/* {roomId && (
+            <div className="mt-6">
+              <MatchComments 
+                matchId={roomId} 
+                isVisible={true} 
+              />
+            </div>
+          )} */}
         </>
       )}
 
       {gameStatus === "finished" && (
-        <ResultsDisplay
-          players={
-            playerRefresh
-            // players && players.length > 0 ? players : playerRefresh
-          }
-          challengeData={finalChallengeData}
-          questions={questions}
-          calculatedScores={calculatedScores}
-          onReturnHome={() => navigate("/", { replace: true })}
-          winnerId={matchDetails?.winner}
-        />
+        <>
+          <ResultsDisplay
+            players={
+              playerRefresh
+              // players && players.length > 0 ? players : playerRefresh
+            }
+            challengeData={finalChallengeData}
+            questions={questions}
+            calculatedScores={calculatedScores}
+            onReturnHome={() => navigate("/", { replace: true })}
+            winnerId={matchDetails?.winner}
+            matchId={roomId}
+          />
+          
+          {/* Chat dans les résultats finaux */}
+          {roomId && (
+            <div className="mt-6">
+              <MatchComments 
+                matchId={roomId} 
+                isVisible={true} 
+              />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

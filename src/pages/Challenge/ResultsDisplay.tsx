@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, AlertCircle, ChevronDown, ChevronUp, Check, X } from "lucide-react";
+import { MatchComments } from "./components/MatchComments";
 
 interface Player {
   _id: string;
@@ -38,13 +39,16 @@ interface ResultsDisplayProps {
   onReturnHome: () => void;
   isAbandoned?: boolean;
   winnerId?: string;
+  matchId?: string;
 }
 
 // Fonction utilitaire pour corriger l'URL d'image
 function getCleanImageUrl(url?: string) {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'
   if (!url) return '/default-profile.png';
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  return `https://netwebback.onrender.com${url}`;
+
+  return `${API_BASE_URL}${url}`;
 }
 
 export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
@@ -55,8 +59,16 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
   onReturnHome,
   isAbandoned = false,
   winnerId,
+  matchId,
 }) => {
+   if (!matchId) {
+          const path = location.pathname.split("/")[3];
+          matchId = path;
+      }
+
   const [expandedPlayer, setExpandedPlayer] = useState<string | null>(null);
+  // Le chat s'affiche automatiquement maintenant
+  const [showComments, setShowComments] = useState(true);
 
   const getPlayerId = (player: Player): string => {
     return player._id || player.userId._id;
@@ -96,7 +108,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
   };
 
   const getAnswerForQuestion = (player: Player, questionId: number) => {
-    console.log("players --- - - ", player)
+    // console.log("players --- - - ", player)
     return player.answers.find(a => a.questionId === questionId);
   };
 
@@ -273,6 +285,30 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
           );
         })}
       </div>
+
+      {/* Section Commentaires - Maintenant affichée automatiquement */}
+   
+      {matchId && (
+        <div className="mb-6">
+          <div className="flex justify-center mb-4">
+            <button
+              onClick={() => setShowComments(!showComments)}
+              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 sm:px-6 rounded-lg transition-colors font-bold flex items-center gap-2 text-sm sm:text-base"
+            >
+              {showComments ? "Masquer les commentaires" : "Voir les commentaires"}
+            </button>
+          </div>
+          
+          <AnimatePresence>
+            {showComments && (
+              <MatchComments 
+                matchId={matchId} 
+                isVisible={showComments} 
+              />
+            )}
+          </AnimatePresence>
+        </div>
+      )}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
